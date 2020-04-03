@@ -12,12 +12,3 @@
   /* grid-gap: 10px; */
 }
 
-.nav {
-  grid-area: n;
-  background-color: burlywood;
-}
-
-.content {
-  grid-area: c;
-  background-color: darkcyan;
-}

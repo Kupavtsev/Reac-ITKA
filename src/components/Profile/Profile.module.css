@@ -3,6 +3,7 @@
   background-color: darkcyan;
 }
 
-.item {
-  color: greenyellow;
+#ProfileImage {
+  height: 150px;
+  width: 100%;
 }
