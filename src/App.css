@@ -12,3 +12,12 @@
   /* grid-gap: 10px; */
 }
 
+.app-wrapper-content {
+  grid-area: c;
+  background-color: darkcyan;
+}
+
+#ProfileImage {
+  height: 150px;
+  width: 100%;
+}
