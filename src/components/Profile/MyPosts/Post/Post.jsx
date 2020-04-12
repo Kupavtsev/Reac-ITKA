@@ -5,7 +5,7 @@ const Post = (props) => {
 
   return (
     <div className={s.item}>
-      <img src='https://lh3.googleusercontent.com/proxy/1ZDBmL-bG_czN8Jy2a6gDRiN-OKPWfRm4p4aAxbL4mIz7b9cUQXgXmFjEr_ExebNhjy1nZs4SO76NuVIS89JcGS12e5ivrQmvKIQBO0x4S_kVNlxgGdooY7Qqr4l'></img>
+      <img src='https://cdn1.iconfinder.com/data/icons/job1-1/64/businessman-job-avatar-occupation-jobs-business-trader-512.png'></img>
             {props.message}
       <div>
         <span>like </span> {props.likesCount}

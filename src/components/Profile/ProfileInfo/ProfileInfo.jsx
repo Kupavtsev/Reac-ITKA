@@ -4,9 +4,9 @@ import s from './ProfileInfo.module.css';
 const ProfileInfo = () => {
     return (
         <div>
-            <div>
+            <div className={s.image}>
                 <img
-                    src='https://img.freepik.com/free-vector/abstract-circle-dot-gradation-background_2095-224.jpg?size=626&ext=jpg'></img>
+                    src='https://miro.medium.com/max/2800/1*WbcprlGOq8O5qVs7l-tPww.png'></img>
             </div>
             <div className={s.descriptionBlock}>
                 ava + description
