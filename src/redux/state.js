@@ -1,4 +1,6 @@
-import {renderEntireTree} from "../render";
+let renderEntireTree = () => {
+    console.log('State has changed');
+};
 
 let state = {
     profilePage: {
@@ -34,7 +36,7 @@ let state = {
 window.state = state;
 
 // Adding message to profilePage.posts
-export let addPost = () => {
+export const addPost = () => {
     let newPost = {
         id: 5,
         message: state.profilePage.newPostText,
@@ -45,9 +47,21 @@ export let addPost = () => {
     renderEntireTree(state);
 };
 
-export let updateNewPostText = (newText) => {
+export const updateNewPostText = (newText) => {
     state.profilePage.newPostText = newText;
     renderEntireTree(state);
 };
 
+// observer this is pattern you should to know!!!
+// it's very similiar with 'publisher-subscriber', 'addEventListener'
+export const subscribe = (observer) => {
+    // that logic of function subscribe will find
+    // renderEntireTree on the first line of state.js
+    // and give her observer
+    // (Here's the same logic as in onClick)
+    renderEntireTree = observer;
+};
+
 export default state;
+
+// store - OOP
