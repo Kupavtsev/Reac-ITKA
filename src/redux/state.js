@@ -7,7 +7,8 @@ let state = {
             {id: 2, message: 'It\'s my first post', likesCount: 27},
             {id: 3, message: 'Are you going to trade?', likesCount: 127},
             {id: 4, message: 'What about Fib levels?', likesCount: 327},
-        ]
+        ],
+        newPostText: 'You are Trader!'
     },
     dialogsPage: {
         dialogs: [
@@ -29,14 +30,23 @@ let state = {
     sitebar: {}
 };
 
+// ?? In console we can enter 'state'
+window.state = state;
+
 // Adding message to profilePage.posts
-export let addPost = (postMessage) => {
+export let addPost = () => {
     let newPost = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0
     };
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    renderEntireTree(state);
+};
+
+export let updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText;
     renderEntireTree(state);
 };
 
