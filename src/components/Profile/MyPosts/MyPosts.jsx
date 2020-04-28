@@ -9,7 +9,8 @@ const MyPosts = (props) => {
 
     let addPost = () => {
         props.addPost();
-        // Make textarea empty, throw state
+        // Now we make textarea empty, throw state
+        // Old version of empty textarea
         //props.updateNewPostText('');
     };
 
