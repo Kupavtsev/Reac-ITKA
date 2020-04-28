@@ -1,3 +1,5 @@
+// This is exact copy of REDUX store
+// To make it clear, how Redux work inside
 let store = {
     _state: {
         profilePage: {
@@ -28,36 +30,45 @@ let store = {
         },
         sitebar: {}
     },
-    getState() {
-      return this._state;
-    },
     _callSubscriber () {
         console.log('State has changed');
     },
-    // Adding message to profilePage.posts
-    addPost () {
-        let newPost = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
+
+    // This 2 methods dont change our state
+    getState() {
+      return this._state;
     },
-    updateNewPostText (newText) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
-    },
-    // observer this is pattern you should to know!!!
-    // it's very similiar with 'publisher-subscriber', 'addEventListener'
     subscribe (observer) {
         // that logic of function subscribe will find
         // renderEntireTree on the first line of state.js
         // and give her observer
         // (Here's the same logic as in onClick)
         this._callSubscriber = observer;
+    },
+
+    // This 2 methods do change our state
+    // Adding message to profilePage.posts
+
+    // observer this is pattern you should to know!!!
+    // it's very similiar with 'publisher-subscriber', 'addEventListener'
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        }
+
     }
+
 };
 
 export default store;
