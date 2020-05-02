@@ -1,5 +1,5 @@
 import * as serviceWorker from './serviceWorker';
-import store from "./redux/state";
+import store from "./redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -8,6 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 
 // this is local 'state' used when someone else use this function
 let renderEntireTree = (state) => {
+    debugger;
     ReactDOM.render(
         <BrowserRouter>
             <App state={state} dispatch={store.dispatch.bind(store)} store={store} />
@@ -19,7 +20,11 @@ renderEntireTree(store.getState());
 
 // This is CallBack - one function inside other
 // (here we give to subscribe function from line 11 of index.js)
-store.subscribe(renderEntireTree);
+// 42 когда store изменится вызовится эта стрелочная функция
+store.subscribe(() => {
+    let state = store.getState();
+    renderEntireTree(state);
+});
 
 // Base version.
 /*ReactDOM.render(

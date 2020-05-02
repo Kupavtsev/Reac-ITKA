@@ -10,7 +10,7 @@ import Settings from "./components/Settings/Settings";
 import {Route} from "react-router-dom";
 
 const App = (props) => {
-    //debugger;
+    debugger;
     return (
             <div className='app-wrapper'>
                 <Header/>

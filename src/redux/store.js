@@ -45,7 +45,7 @@ let store = {
     },
     subscribe (observer) {
         // that logic of function subscribe will find
-        // renderEntireTree on the first line of state.js
+        // renderEntireTree on the first line of store.js
         // and give her observer
         // (Here's the same logic as in onClick)
         this._callSubscriber = observer;
@@ -57,6 +57,7 @@ let store = {
     // observer this is pattern you should to know!!!
     // it's very similiar with 'publisher-subscriber', 'addEventListener'
 
+    // Мы диспатчим действия из UI, которые преобразуют state
     dispatch(action) {
         // Это превращается в новый profilePage после обработки Редьюсером
         // Т.е. через эту переменную state обновился
