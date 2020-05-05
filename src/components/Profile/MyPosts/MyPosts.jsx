@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 
 const MyPosts = (props) => {
@@ -9,20 +8,19 @@ const MyPosts = (props) => {
 
     let newPostElement = React.createRef();
 
-    let addPost = () => {
-        //props.addPost();
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
+        // ActionCreator это функция, которая возвращает action
+        // action это объект у которого есть как минимум свойство type
+        // props.dispatch(addPostActionCreator());
         // Now we make textarea empty, throw state
         // Old version of empty textarea
-        //props.updateNewPostText('');
+        // props.updateNewPostText('');
     };
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        //props.updateNewPostText(text);
-        // let action = { type: 'UPDATE-NEW-POST-TEXT', newText: text };
-        let action = updateNewPostTextActionCreator(text);
-        props.dispatch(action);
+        props.updateNewPostText(text);
     };
 
     return (
@@ -33,7 +31,7 @@ const MyPosts = (props) => {
                     <textarea onChange={ onPostChange } ref={newPostElement} value={props.newPostText} />
                 </div>
                 <div>
-                    <button onClick={ addPost }>Add post</button>
+                    <button onClick={ onAddPost }>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
