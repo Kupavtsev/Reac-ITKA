@@ -8,34 +8,33 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 // this is local 'state' used when someone else use this function
-let renderEntireTree = (state) => {
-    debugger;
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </BrowserRouter>, document.getElementById('root'));
-};
 
-// this state goes from import
-renderEntireTree(store.getState());
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>, document.getElementById('root'));
+
+
+/*renderEntireTree(store.getState());*/
 
 // This is CallBack - one function inside other
 // (here we give to subscribe function from line 11 of index.js)
 // 42 когда store изменится вызовится эта стрелочная функция
-store.subscribe(() => {
+// 47 Delete 10:10
+/*store.subscribe(() => {
     let state = store.getState();
     renderEntireTree(state);
-});
+});*/
 
-// Base version.
-/*ReactDOM.render(
-  <React.StrictMode>
-    <App posts={posts} dialogs={dialogs} messages={messages}/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);*/
+// His version on 47 lesson! 8:48
+/*
+renderEntireTree();
+store.subscribe(() => {
+    renderEntireTree();
+    })
+*/
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
