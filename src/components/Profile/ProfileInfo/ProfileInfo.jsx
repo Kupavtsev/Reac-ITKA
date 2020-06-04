@@ -9,7 +9,7 @@ const ProfileInfo = () => {
                     src='https://miro.medium.com/max/2800/1*WbcprlGOq8O5qVs7l-tPww.png'></img>
             </div>
             <div className={s.descriptionBlock}>
-                ava + description
+
             </div>
         </div>
     )

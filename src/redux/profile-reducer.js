@@ -8,7 +8,7 @@ let initialState = {
         {id: 3, message: 'Are you going to trade?', likesCount: 127},
         {id: 4, message: 'What about Fib levels?', likesCount: 327},
     ],
-    newPostText: 'You are Trader!'
+    newPostText: 'Click add post, to initiate CallBack which will dispatch action creator throw reducer to state...'
 };
 
 const profileReducer = (state = initialState, action) => {
