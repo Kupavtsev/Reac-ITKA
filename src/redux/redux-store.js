@@ -9,6 +9,7 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
+    /*23:00 55 more explanation*/
     usersPage: usersReducer
 });
 

@@ -1,10 +1,14 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 let initialState = {
-    users: [
-        ]
+    users: [],
+    pageSize: 15,
+    totalUsersCount: 0,
+    currentPage: 2
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -36,8 +40,18 @@ const usersReducer = (state = initialState, action) => {
         // Вставка пользователей в state
         case SET_USERS: {
             // Мы берем страй state и дописываем его новыми пользователями
+            // которые пришли в action users: [ ...state.users, ...action.users]
+            return { ...state, users: action.users }
+        }
+        case SET_CURRENT_PAGE: {
+            // Мы берем страй state и дописываем его новыми пользователями
             // которые пришли в action
-            return { ...state, users: [ ...state.users, ...action.users] }
+            return { ...state, currentPage: action.currentPage }
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            // Мы берем страй state и дописываем его новыми пользователями
+            // которые пришли в action
+            return { ...state, totalUsersCount: action.count }
         }
         default:
             return state;
@@ -54,5 +68,7 @@ export const followAC = (userId) => {
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
 // Action which will set users to the STATE in Array from serever
 export const setUsersAC = (users) => ({ type: SET_USERS, users });
+export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setTotalUsersCountAC = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount });
 
 export default usersReducer;

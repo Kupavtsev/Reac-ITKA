@@ -1,14 +1,19 @@
 import React from 'react';
 import Users from "./Users";
 import {connect} from 'react-redux';
-import {followAC, setUsersAC, unfollowAC} from "../../redux/users-reducer";
+import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from "../../redux/users-reducer";
 
-// This function accepts hole State
+// This function mapStateToProps accepts hole State
 // and returns the object which is only needed for Present component
 let mapStateToProps = (state) => {
     return {
-        /* В пропсах будет свойство users, значением которого будут users из state*/
-        users: state.usersPage.users
+        /* В пропсах будет свойство users, значением которого будут users из state
+        23:00 55 more explanation*/
+        users: state.usersPage.users,
+        // Мы привязываем одну страничку к одной части Стэйта
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage
     }
 };
 
@@ -23,6 +28,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         setUsers: (users) => {
             dispatch(setUsersAC(users));
+        },
+        setCurrentPage: (pageNumber) => {
+            dispatch(setCurrentPageAC(pageNumber))
+        },
+        setTotalUsersCount: (totalCount) => {
+            dispatch(setTotalUsersCountAC(totalCount))
         }
     }
 }
