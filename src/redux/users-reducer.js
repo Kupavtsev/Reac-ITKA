@@ -62,17 +62,17 @@ const usersReducer = (state = initialState, action) => {
 };
 
 // Чтобы зафоловить кого-то нам нужен userId, который приходит в функцию, как параметр
-export const followAC = (userId) => {
+export const follow = (userId) => {
     //debugger;
     return (
         {type: FOLLOW, userId}
     )
 }
-export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId });
 // Action which will set users to the STATE in Array from serever
-export const setUsersAC = (users) => ({ type: SET_USERS, users });
-export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
-export const setTotalUsersCountAC = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount });
-export const toggleIsFetchingAC = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount });
+export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
 
 export default usersReducer;
