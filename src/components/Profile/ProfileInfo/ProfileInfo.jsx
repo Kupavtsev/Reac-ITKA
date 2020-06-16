@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 
 const ProfileInfo = (props) => {
+    /*If there is no "profile" it shows preloader*/
     /*if (props.profile == null || typeOf(props.profile) == undefined)*/
     if (!props.profile) {
         return <Preloader />

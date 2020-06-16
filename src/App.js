@@ -18,8 +18,13 @@ const App = (props) => {
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
                            render={ () => <DialogsContainer /> }/>
-                    <Route path='/profile'
+
+                    {/*60 20:00 adding params for user profile
+                    path='/profile/:userId/:secondParams'
+                    :userId? - ? now param as option*/}
+                    <Route path='/profile/:userId?'
                            render={ () => <ProfileContainer /> } />
+
                     <Route path='/users'
                            render={ () => <UsersContainer /> } />
 
