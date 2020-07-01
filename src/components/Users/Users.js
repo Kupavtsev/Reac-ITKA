@@ -41,7 +41,9 @@ let Users = (props) => {
                     <div>
                         {/*Разные кнопки, в зависимоти от followed/unfollowed*/}
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+
+                                props.toggleFollowingProgress(true, u.id);
 
                                 /*On the DELETE withCredentials second Arg*/
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
@@ -54,11 +56,13 @@ let Users = (props) => {
                                         if (response.data.resultCode == 0) {
                                             props.unfollow(u.id);
                                         }
+                                        props.toggleFollowingProgress(false, u.id);
                                     });
 
 
                             }}>Unfollow</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id);
 
                                 /* Server API follow/{userId}, we must be authorized
                                 * Our second Arg is null or an empty object*/
@@ -72,6 +76,7 @@ let Users = (props) => {
                                         if (response.data.resultCode == 0) {
                                             props.follow(u.id);
                                         }
+                                        props.toggleFollowingProgress(false, u.id);
                                     });
 
 
