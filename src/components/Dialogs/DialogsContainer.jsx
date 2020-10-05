@@ -7,7 +7,8 @@ import {connect} from "react-redux";
 // Замапить state на пропсы, превратить часть state в props
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 };
 let mapDispatchToProps = (dispatch) => {

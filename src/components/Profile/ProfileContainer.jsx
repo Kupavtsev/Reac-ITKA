@@ -1,10 +1,8 @@
 import React from 'react';
 import Profile from "./Profile";
-import * as axios from 'axios';
 import {connect} from 'react-redux';
 import {getUserProfile} from "../../redux/profile-reducer";
-import {withRouter} from "react-router-dom";
-import { userAPI } from '../../api/api';
+import {Redirect, withRouter} from "react-router-dom";
 
 class ProfileContainer extends React.Component {
 
@@ -19,6 +17,10 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+
+        // another in Dialogs
+        if (this.props.isAuth === false) return <Redirect to="/login" />
+
         return (
             /*16:00 59 Lesson*/
             <Profile {...this.props} profile={this.props.profile}/>
@@ -28,7 +30,8 @@ class ProfileContainer extends React.Component {
 
 // Мы ставим () вне тела функции, т.к. она возвращает объект
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 });
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
