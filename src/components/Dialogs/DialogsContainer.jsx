@@ -3,6 +3,7 @@ import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialo
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 // Две фун-ции, которые возвращают объект
 // Замапить state на пропсы, превратить часть state в props
@@ -23,10 +24,9 @@ let mapDispatchToProps = (dispatch) => {
     }
 };
 
-let authRedirectComponent = withAuthRedirect(Dialogs);
-    
-
-// Новая контейнерная ком-нта
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(authRedirectComponent);
-
-export default DialogsContainer;
+// Закидывание происходит с конца, от Dialogs
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+    )
+    (Dialogs);;
