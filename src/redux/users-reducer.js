@@ -101,6 +101,7 @@ export const getUsers = (currentPage, pageSize) => {
             });
 }}
 
+// выносим связку диспатчей в отдельную Санку
 export const follow = (userid) => {
     return (dispatch) => {
     

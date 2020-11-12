@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./users.module.css";
 import userPhoto from '../../assets/images/user.png';
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 let Users = (props) => {
 
@@ -9,7 +9,7 @@ let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
     let pages = [];
-    for (let i=1; i <= pagesCount; i++) {
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
 
@@ -18,9 +18,9 @@ let Users = (props) => {
             {/*// onClick т.к. обработчик события html элемента, то приходит (event)*/}
             {pages.map(p => {
                 return <span className={props.currentPage === p && styles.selectedPage}
-                             onClick={(e) => {
-                                 props.onPageChanged(p);
-                             }}>{p}</span>
+                    onClick={(e) => {
+                        props.onPageChanged(p);
+                    }}>{p}</span>
                 /*className={true ? styles.selectedPage : ""}*/
             })}
         </div>
@@ -33,25 +33,21 @@ let Users = (props) => {
                 <span>
                     <div>
                         <NavLink to={'/profile/' + u.id}>
-                        <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                             className={styles.userPhoto}/>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                className={styles.userPhoto} />
                         </NavLink>
                     </div>
                     <div>
                         {/*Разные кнопки, в зависимоти от followed/unfollowed*/}
-                        {u.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                        {
+                            u.followed
 
-                                props.unfollow(u.id);
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                    onClick={() => { props.unfollow(u.id); }}>Unfollow</button>
 
-                                
-
-
-                            }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                props.follow(u.id);
-
-                            }}>Follow</button>}
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                    onClick={() => { props.follow(u.id); }}>Follow</button>
+                        }
                     </div>
                 </span>
                 <span>
