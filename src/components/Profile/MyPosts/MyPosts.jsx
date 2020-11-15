@@ -1,38 +1,38 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
+const AddNewPostForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component='textarea' name='newPostElement' />
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+        </form>
+    )
+}
+
+const AddNewPostFormRedux = reduxForm({
+    form: 'postAddElementForm'
+})(AddNewPostForm);
+
 
 const MyPosts = (props) => {
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
+    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
 
-    let newPostElement = React.createRef();
-
-    let onAddPost = () => {
-        props.addPost();
-        // ActionCreator это функция, которая возвращает action
-        // action это объект у которого есть как минимум свойство type
-        // props.dispatch(addPostActionCreator());
-        // Now we make textarea empty, throw state
-        // Old version of empty textarea
-        // props.updateNewPostText('');
-    };
-
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
-    };
+    const onAddPost = (values) => {
+        props.addPost(values.newPostElement);
+    }
 
     return (
         <div className={s.postsBlock}>
             <h3>My post</h3>
             <div>
-                <div>
-                    <textarea className={s.text} onChange={ onPostChange } ref={newPostElement} value={props.newPostText} />
-                </div>
-                <div>
-                    <button onClick={ onAddPost }>Add post</button>
-                </div>
+                <AddNewPostFormRedux onSubmit={onAddPost} />
             </div>
             <div className={s.posts}>
                 {postsElements}

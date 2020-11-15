@@ -1,5 +1,5 @@
 import React from 'react';
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {sendMessageCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -13,13 +13,10 @@ let mapStateToProps = (state) => {
     }
 };
 let mapDispatchToProps = (dispatch) => {
-    // Он перепутал диспатчи местами ?
     return {
-        updateNewMessageBody: (body) => {
-            dispatch(updateNewMessageBodyCreator(body));
-        },
-        sendMessage: () => {
-            dispatch(sendMessageCreator());
+        // 76 now it's accept newMessageBody from Dialogs
+        sendMessage: (newMessageBody) => {
+            dispatch(sendMessageCreator(newMessageBody));
         }
     }
 };

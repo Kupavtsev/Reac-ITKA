@@ -2,7 +2,6 @@ import { profileAPI, userAPI } from "../api/api";
 
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -13,7 +12,6 @@ let initialState = {
         { id: 3, message: 'Are you going to trade?', likesCount: 127 },
         { id: 4, message: 'What about Fib levels?', likesCount: 327 },
     ],
-    newPostText: 'Click add post, to initiate CallBack which will dispatch action creator throw reducer to state...',
     profile: null,
     status: ""
 };
@@ -23,19 +21,12 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostElement,
                 likesCount: 0
             };
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ''
-            };
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
             };
         }
         // Если необходимого action не придет, то вернется state по умолчанию
@@ -50,9 +41,8 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const updateNewPostTextActionCreator = (text) =>
-    ({ type: UPDATE_NEW_POST_TEXT, newText: text });
+export const addPostActionCreator = (newPostElement) => ({ type: ADD_POST, newPostElement });
+
 // SET_USER_PROFILE название действия, profile сидит в Action
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
