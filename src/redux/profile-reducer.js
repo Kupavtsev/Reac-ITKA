@@ -9,7 +9,7 @@ let initialState = {
     posts: [
         { id: 1, message: 'Hi, how are you?', likesCount: 12 },
         { id: 2, message: 'It\'s my first post', likesCount: 27 },
-        { id: 3, message: 'Are you going to trade?', likesCount: 127 },
+        { id: 3, message: 'Are you going to code?', likesCount: 127 },
         { id: 4, message: 'What about Fib levels?', likesCount: 327 },
     ],
     profile: null,
