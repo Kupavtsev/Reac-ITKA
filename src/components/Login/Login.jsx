@@ -1,21 +1,24 @@
 // https://redux-form.com/8.3.0/docs/gettingstarted.md/
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { required } from '../../utils/validators/validators';
 import { Input } from '../common/FormsControls/FormsControls';
-import { maxLengthCreator, required } from '../../utils/validators/validators';
+import {login} from '../../redux/auth-reducer';
+import { Redirect } from 'react-router-dom';
 
 
 const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={"Login"} name={"login"}
+                <Field placeholder={"Email"} name={"email"}
                     validate={[required]}
                     component={Input} />
             </div>
             <div>
-                <Field placeholder={"Password"} name={"password"}
+                <Field placeholder={"Password"} name={"password"} type={"password"}
                     validate={[required]}
                     component={Input} />
             </div>
@@ -31,13 +34,21 @@ const LoginForm = (props) => {
 
 const LoginReduxFrom = reduxForm({
     // a unique name for the form
-    // "form" doesnt have any connection with "form" in redux-store
+    // "form" doesn't have any connection with "form" in redux-store
     form: 'login'
 })(LoginForm)
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData);
+        // 'login' it's not the same as in 'connect'
+        // it's not Thunk creator
+        // 78 19:00 это CB который внутри себя диспатчит вызов Thunk Creator
+        // из connect, в который передаются эти же параметры, что и в CB
+        props.login(formData.email, formData.password, formData.rememberMe);
+    }
+
+    if (props.isAuth) {
+        return <Redirect to={'/profile'} />
     }
 
     return <div>
@@ -48,4 +59,9 @@ const Login = (props) => {
     </div>
 };
 
-export default Login;
+const mapStateToProps = (state) => ( {
+    isAuth: state.auth.isAuth
+})
+
+// mdtp we put thunk creators straight from auth-reducer
+export default connect(mapStateToProps, {login})(Login);

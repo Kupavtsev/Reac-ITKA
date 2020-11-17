@@ -7,7 +7,6 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false
-    /*isFetching: false*/
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,8 +14,8 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
+                //isAuth: true
             }
         default:
             return state;
@@ -24,17 +23,38 @@ const authReducer = (state = initialState, action) => {
 };
 
 
-export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: {userId, email, login} });
+export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload:
+     {userId, email, login, isAuth} });
 export const getAuthUserData = () => (dispatch) => {
     authAPI.me()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data;
-                    /*Здесь два раза data, т.к. на сервере тоже используется data*/
-                    dispatch(setAuthUserData(id, email, login));
+                    /* We use two times 'data' because on the Server 'data' and we use 'data */
+                    dispatch(setAuthUserData(id, email, login, true));
                 }
             });
 }
-/*export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });*/
+
+// Thunk Creator
+export const login = (email, password, rememberMe) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    // in case it's ok we are dispatch the Thunk getAuthUserData to Store
+                    dispatch(getAuthUserData())
+                }
+            });
+}
+
+export const logout = () => (dispatch) => {
+    authAPI.logout()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    // in case it's ok we need to clear current state
+                    dispatch(setAuthUserData(null, null, null, false));
+                }
+            });
+}
 
 export default authReducer;

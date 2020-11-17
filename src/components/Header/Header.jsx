@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.css';
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
     return (
@@ -8,7 +8,8 @@ const Header = (props) => {
             <img src='https://s2.logaster.com/static/v3/img/products/logo.png'></img>
 
             <div className={s.loginBlock}>
-                { props.isAuth ? props.login
+                {props.isAuth
+                    ? <div>{props.login} - <button onClick={props.logout}>Logout</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>
                 }
 
