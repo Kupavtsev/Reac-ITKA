@@ -29,7 +29,9 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
         { userId, email, login, isAuth }
 });
 export const getAuthUserData = () => (dispatch) => {
-    authAPI.me()
+    // 80 добавляя return мы достаем promise наружу
+    // и передаем его в app-reducer
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let { id, login, email } = response.data.data;
@@ -41,7 +43,7 @@ export const getAuthUserData = () => (dispatch) => {
 
 // Thunk Creator
 export const login = (email, password, rememberMe) => (dispatch) => {
-    
+
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
