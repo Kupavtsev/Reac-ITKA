@@ -8,11 +8,10 @@ import { compose } from 'redux';
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        //debugger;
         /*userId becuase we give this param in App.js*/
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 8914;
+            userId = this.props.authorizedUserId;
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId);
@@ -22,7 +21,8 @@ class ProfileContainer extends React.Component {
 
         return (
             /*16:00 59 Lesson*/
-            <Profile {...this.props} profile={this.props.profile}
+            <Profile {...this.props}
+                profile={this.props.profile}
                 status={this.props.status}
                 updateStatus={this.props.updateStatus}
             />
@@ -33,7 +33,9 @@ class ProfileContainer extends React.Component {
 // Мы ставим () вне тела функции, т.к. она возвращает объект
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 });
 
 
