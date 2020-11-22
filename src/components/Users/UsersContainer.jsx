@@ -5,19 +5,21 @@ import {
     setCurrentPage,
     toggleFollowingProgress,
     unfollow,
-    getUsers
+    requestUsers
 } from '../../redux/users-reducer';
 import Users from './Users';
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { getPageSize, getUsers, getTotalUsersCount,
+         getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
 
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
 
         // this.props.toggleIsFetching(true);
 
@@ -30,7 +32,7 @@ class UsersContainer extends React.Component {
 
     onPageChanged = (pageNumber) => {
 
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.requestUsers(pageNumber, this.props.pageSize);
 
         // this.props.setCurrentPage(pageNumber);
         // this.props.toggleIsFetching(true);
@@ -61,12 +63,23 @@ class UsersContainer extends React.Component {
     }
 }
 
-// This function mapStateToProps accepts hole State
-// and returns the object which is only needed for Present component
 let mapStateToProps = (state) => {
     return {
-        /* В пропсах будет свойство users, значением которого будут users из state
-        23:00 55 more explanation*/
+        // getUsers TWO TIMES !!!!
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
+    }
+};
+
+/*
+let mapStateToProps = (state) => {
+    return {
+        // В пропсах будет свойство users, значением которого будут users из state
+        // 23:00 55 more explanation
         users: state.usersPage.users,
         // Мы привязываем одну страничку к одной части Стэйта
         pageSize: state.usersPage.pageSize,
@@ -76,6 +89,7 @@ let mapStateToProps = (state) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 };
+*/
 
 // Передает callbacks дочерней, презентационной компоненте
 /*let mapDispatchToProps = (dispatch) => {
@@ -104,6 +118,6 @@ let mapStateToProps = (state) => {
 
 // In this situation we work with Container Component - UsersAPIComponent
 export default compose(
-    connect(mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers })
+    connect(mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers })
 )
     (UsersContainer);
