@@ -12,7 +12,8 @@ import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { getPageSize, getUsers, getTotalUsersCount,
-         getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
+         getCurrentPage, getIsFetching, getFollowingInProgress,
+          } from '../../redux/users-selectors';
 
 
 class UsersContainer extends React.Component {
@@ -47,7 +48,9 @@ class UsersContainer extends React.Component {
     // Must be in any Class for JSX
     // props in RENDER doesn't come in, it's inside Object
     render() {
-        //debugger;
+        // debugger;
+        // console.log("USERS")
+
         return <>
             {this.props.isFetching ? <Preloader /> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
@@ -64,8 +67,9 @@ class UsersContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
+    console.log('mapStateToProps USERS');
     return {
-        // getUsers TWO TIMES !!!!
+        // we use here CreateSelector in getUser
         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),

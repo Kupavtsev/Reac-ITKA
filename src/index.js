@@ -9,6 +9,12 @@ import {Provider} from "react-redux";
 
 // this is local 'state' used when someone else use this function
 
+
+setInterval(() => {
+    store.dispatch({type:"FAKE"})
+}, 1000);
+
+
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
