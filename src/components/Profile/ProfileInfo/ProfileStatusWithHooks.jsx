@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './ProfileInfo.module.css';
 
 /*
@@ -17,6 +17,13 @@ const ProfileStatusWithHooks = (props) => {
     let editMode = stateWithSetState[0];
     let setEditMode = stateWithSetState[1];
 */
+
+    // Синхронизируем наш Статус
+    // [] отрисоваться один раз
+    // [props.status] создаем зависимость
+    useEffect( () => {
+        setStatus(props.status)
+    }, [props.status] );
 
     const activateMode = () => {
         setEditMode(true);
