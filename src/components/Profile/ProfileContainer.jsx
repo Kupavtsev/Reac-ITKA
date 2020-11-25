@@ -22,6 +22,7 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        // console.log("Render Profile")
         return (
             /*16:00 59 Lesson*/
             <Profile {...this.props}
