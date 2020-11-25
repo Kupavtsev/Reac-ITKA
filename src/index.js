@@ -15,6 +15,9 @@ setInterval(() => {
 }, 1000);
 */
 
+
+//89 <BrowserRouter> and <Provider> moved to app.js
+// after 'return'
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
