@@ -18,8 +18,8 @@ import { getPageSize, getUsers, getTotalUsersCount,
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props
+        this.props.requestUsers(currentPage, pageSize);
 
         // this.props.toggleIsFetching(true);
 
@@ -31,8 +31,8 @@ class UsersContainer extends React.Component {
     }
 
     onPageChanged = (pageNumber) => {
-
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+        const {pageSize} = this.props
+        this.props.requestUsers(pageNumber, pageSize);
 
         // this.props.setCurrentPage(pageNumber);
         // this.props.toggleIsFetching(true);
@@ -66,7 +66,7 @@ class UsersContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    console.log('mapStateToProps USERS');
+    //console.log('mapStateToProps USERS');
     return {
         // we use here CreateSelector in getUser
         users: getUsers(state),

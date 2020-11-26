@@ -1,4 +1,5 @@
 import { userAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/object-helpers";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -20,31 +21,34 @@ let initialState = {
 };
 
 const usersReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         //case "FAKE": return {...state, fake: state.fake + 1}
         case FOLLOW:
             return {
                 ...state,
-                users: [...state.users.map( u => {
+                users: updateObjectInArray( state.users, action.userId, "id", {followed: true} )
+                /* This logic now in /utils/object-helpers.js
+                users: [...state.users.map(u => {
                     // Если id не совпадает, то возвращем тот же самый объект 49, 30:30
                     if (u.id === action.userId) {
-                        /*Возвращаем копию пользователя и меняем в нем элемент*/
-                        return {...u, followed: true}
+                        // Возвращаем копию пользователя и меняем в нем элемент
+                        return { ...u, followed: true }
                     }
                     return u;
                 })
-                ]
+                ]*/
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: [...state.users.map( u => {
+                users: updateObjectInArray( state.users, action.userId, "id", {followed: false} )
+                /*users: [...state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, followed: false}
+                        return { ...u, followed: false }
                     }
                     return u;
                 })
-                ]
+                ]*/
             }
         // Вставка пользователей в state
         case SET_USERS: {
@@ -80,7 +84,7 @@ const usersReducer = (state = initialState, action) => {
 export const followSuccess = (userId) => {
     //debugger;
     return (
-        {type: FOLLOW, userId}
+        { type: FOLLOW, userId }
     )
 }
 export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
@@ -92,54 +96,44 @@ export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isF
 export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
 
 export const requestUsers = (page, pageSize) => {
-    return (dispatch) => {
-    
-    dispatch(toggleIsFetching(true));
-    // It whows Current Page in UI
-    dispatch(setCurrentPage(page));
+    return async (dispatch) => {
 
-        userAPI.getUsers(page, pageSize).then(data => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(data.items));
-                dispatch(setTotalUsersCount(data.totalCount));
-            });
-}}
+        dispatch(toggleIsFetching(true));
+        // It whows Current Page in UI
+        dispatch(setCurrentPage(page));
+
+        let data = await userAPI.getUsers(page, pageSize);
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+    }
+}
+
+// Данный метод забрал дублирующийся код из follow/unfollow на себя
+const followUnfollowFlow = async (dispatch, userid, apiMethod, actionCreator) => {
+    dispatch(toggleFollowingProgress(true, userid));
+
+    /* Server API follow/{userId}, we must be authorized
+       Our second Arg is null or an empty object*/
+    let response = await apiMethod(userid)
+
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(userid));
+    }
+    dispatch(toggleFollowingProgress(false, userid));
+}
 
 // выносим связку диспатчей в отдельную Санку
 export const follow = (userid) => {
-    return (dispatch) => {
-    
-        dispatch(toggleFollowingProgress(true, userid));
-
-        /* Server API follow/{userId}, we must be authorized
-        * Our second Arg is null or an empty object*/
-        userAPI.follow(userid)
-        
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(followSuccess(userid));
-                }
-                dispatch(toggleFollowingProgress(false, userid));
-            });
-}}
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userid, userAPI.follow.bind(userAPI), followSuccess);
+    }
+}
 
 export const unfollow = (userid) => {
-    return (dispatch) => {
-    
-        dispatch(toggleFollowingProgress(true, userid));
-
-        /* Server API follow/{userId}, we must be authorized
-        * Our second Arg is null or an empty object*/
-        userAPI.unfollow(userid)
-        
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userid));
-                }
-                dispatch(toggleFollowingProgress(false, userid));
-            });
-}}
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userid, userAPI.unfollow.bind(userAPI), unfollowSuccess);
+    }
+}
 
 export default usersReducer;
-
-// 5:17

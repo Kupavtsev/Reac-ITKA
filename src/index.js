@@ -16,7 +16,8 @@ setInterval(() => {
 */
 
 
-//89 <BrowserRouter> and <Provider> moved to app.js
+// 89 <BrowserRouter> and <Provider> moved to app.js this is Mistake! - 90 28:00
+// When we use HOC withRouter in app.js it should be already inside of <BrowserRouter> and <Provider>
 // after 'return'
 ReactDOM.render(
     <BrowserRouter>
