@@ -1,11 +1,8 @@
 import * as serviceWorker from './serviceWorker';
-import store from "./redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import {BrowserRouter} from "react-router-dom";
-import {Provider} from "react-redux";
+import SocialJSApp from './App';
 
 // this is local 'state' used when someone else use this function
 
@@ -20,11 +17,9 @@ setInterval(() => {
 // When we use HOC withRouter in app.js it should be already inside of <BrowserRouter> and <Provider>
 // after 'return'
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </BrowserRouter>, document.getElementById('root'));
+    
+            <SocialJSApp />
+        , document.getElementById('root'));
 
 
 /*renderEntireTree(store.getState());*/

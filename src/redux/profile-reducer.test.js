@@ -15,36 +15,24 @@ let action = addPostActionCreator('New post text');
 
 it('Length of posts should be incremented', () => {
     // 1.start data
-    
-
     let newState = profileReducer(state, action);
     //3. expectation
     expect(newState.posts.length).toBe(5);
 })
 
 it('Message of new posts should be correct', () => {
-    
-    // 2. action
     let newState = profileReducer(state, action);
-
-    //3. expectation
     expect(newState.posts[4].message).toBe('New post text');
 })
 
 it('Length after deleting should be decrement', () => {
-    // 2. action
     let action = deletePost(1);
-
     let newState = profileReducer(state, action);
-    //3. expectation
     expect(newState.posts.length).toBe(3);
 })
 
 it(`After deleting length shouldn't be decrement if ID is incorrect`, () => {
-    // 2. action
     let action = deletePost(1000);
-
     let newState = profileReducer(state, action);
-    //3. expectation
     expect(newState.posts.length).toBe(4);
 })
