@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import { Route, withRouter } from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
@@ -15,8 +12,17 @@ import { initializeApp } from "./redux/app-reducer";
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
 import store from "./redux/redux-store";
-import {BrowserRouter} from "react-router-dom";
-import {Provider} from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import Music from "./components/Music/Music";
+import { withSuspense } from './hoc/withSuspense';
+
+//import DialogsContainer from "./components/Dialogs/DialogsContainer";
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer')); // Lazy Loading
+//import ProfileContainer from "./components/Profile/ProfileContainer";
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer')); // Lazy Loading
+
+//const Music = React.lazy(() => import('./components/Music/Music')); // Lazy Loading
 
 class App extends React.Component {
 
@@ -37,13 +43,20 @@ class App extends React.Component {
                             <Navbar />
                             <div className='app-wrapper-content'>
                                    <Route path='/dialogs'
-                                          render={() => <DialogsContainer />} />
+                                           render={withSuspense(DialogsContainer)} />
+                                   
+                                   {/* <Suspense fallback={<Preloader />}>
+                                          <Route path='/dialogs'
+                                                 render={() => <DialogsContainer />} />
+                                   </Suspense> */}
 
-                                   {/*60 20:00 adding params for user profile
+                                   <Suspense fallback={<Preloader />}>
+                                          {/*60 20:00 adding params for user profile
                                      path='/profile/:userId/:secondParams'
                                      :userId? - ? now param as option*/}
-                                   <Route path='/profile/:userId?'
-                                          render={() => <ProfileContainer />} />
+                                          <Route path='/profile/:userId?'
+                                                 render={() => <ProfileContainer />} />
+                                   </Suspense>
 
                                    <Route path='/users'
                                           render={() => <UsersContainer />} />
@@ -74,11 +87,11 @@ let AppContainer = compose(
 )(App);
 
 const SocialJSApp = (props) => {
-   return <BrowserRouter>
-        <Provider store={store}>
-            <AppContainer />
-        </Provider>
-    </BrowserRouter>
+       return <BrowserRouter>
+              <Provider store={store}>
+                     <AppContainer />
+              </Provider>
+       </BrowserRouter>
 }
 
 export default SocialJSApp;
