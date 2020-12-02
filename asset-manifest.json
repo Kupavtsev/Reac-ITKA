@@ -1,31 +1,31 @@
 {
   "files": {
     "main.css": "/Reac-ITKA/static/css/main.cba8ab94.chunk.css",
-    "main.js": "/Reac-ITKA/static/js/main.860d6a10.chunk.js",
-    "main.js.map": "/Reac-ITKA/static/js/main.860d6a10.chunk.js.map",
-    "runtime-main.js": "/Reac-ITKA/static/js/runtime-main.18a92d53.js",
-    "runtime-main.js.map": "/Reac-ITKA/static/js/runtime-main.18a92d53.js.map",
-    "static/js/2.763ea104.chunk.js": "/Reac-ITKA/static/js/2.763ea104.chunk.js",
-    "static/js/2.763ea104.chunk.js.map": "/Reac-ITKA/static/js/2.763ea104.chunk.js.map",
+    "main.js": "/Reac-ITKA/static/js/main.f0cd36b5.chunk.js",
+    "main.js.map": "/Reac-ITKA/static/js/main.f0cd36b5.chunk.js.map",
+    "runtime-main.js": "/Reac-ITKA/static/js/runtime-main.53b509eb.js",
+    "runtime-main.js.map": "/Reac-ITKA/static/js/runtime-main.53b509eb.js.map",
+    "static/js/2.f861cccd.chunk.js": "/Reac-ITKA/static/js/2.f861cccd.chunk.js",
+    "static/js/2.f861cccd.chunk.js.map": "/Reac-ITKA/static/js/2.f861cccd.chunk.js.map",
     "static/css/3.33c873d1.chunk.css": "/Reac-ITKA/static/css/3.33c873d1.chunk.css",
     "static/js/3.6ceece01.chunk.js": "/Reac-ITKA/static/js/3.6ceece01.chunk.js",
     "static/js/3.6ceece01.chunk.js.map": "/Reac-ITKA/static/js/3.6ceece01.chunk.js.map",
     "static/css/4.94e8bc57.chunk.css": "/Reac-ITKA/static/css/4.94e8bc57.chunk.css",
-    "static/js/4.da3dd7e5.chunk.js": "/Reac-ITKA/static/js/4.da3dd7e5.chunk.js",
-    "static/js/4.da3dd7e5.chunk.js.map": "/Reac-ITKA/static/js/4.da3dd7e5.chunk.js.map",
+    "static/js/4.06ce5ca3.chunk.js": "/Reac-ITKA/static/js/4.06ce5ca3.chunk.js",
+    "static/js/4.06ce5ca3.chunk.js.map": "/Reac-ITKA/static/js/4.06ce5ca3.chunk.js.map",
     "index.html": "/Reac-ITKA/index.html",
-    "precache-manifest.8141947fc218d2a1c390ba24403b8b24.js": "/Reac-ITKA/precache-manifest.8141947fc218d2a1c390ba24403b8b24.js",
+    "precache-manifest.8723874f9cd56ae35b036902cecad193.js": "/Reac-ITKA/precache-manifest.8723874f9cd56ae35b036902cecad193.js",
     "service-worker.js": "/Reac-ITKA/service-worker.js",
     "static/css/3.33c873d1.chunk.css.map": "/Reac-ITKA/static/css/3.33c873d1.chunk.css.map",
     "static/css/4.94e8bc57.chunk.css.map": "/Reac-ITKA/static/css/4.94e8bc57.chunk.css.map",
     "static/css/main.cba8ab94.chunk.css.map": "/Reac-ITKA/static/css/main.cba8ab94.chunk.css.map",
-    "static/js/2.763ea104.chunk.js.LICENSE.txt": "/Reac-ITKA/static/js/2.763ea104.chunk.js.LICENSE.txt",
+    "static/js/2.f861cccd.chunk.js.LICENSE.txt": "/Reac-ITKA/static/js/2.f861cccd.chunk.js.LICENSE.txt",
     "static/media/4.svg": "/Reac-ITKA/static/media/4.c9e96b5e.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.18a92d53.js",
-    "static/js/2.763ea104.chunk.js",
+    "static/js/runtime-main.53b509eb.js",
+    "static/js/2.f861cccd.chunk.js",
     "static/css/main.cba8ab94.chunk.css",
-    "static/js/main.860d6a10.chunk.js"
+    "static/js/main.f0cd36b5.chunk.js"
   ]
 }
