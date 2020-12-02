@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import { Route, withRouter } from "react-router-dom";
+import { HashRouter, Route, withRouter } from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
@@ -87,11 +87,14 @@ let AppContainer = compose(
 )(App);
 
 const SocialJSApp = (props) => {
-       return <BrowserRouter>
+       // basename необходимо для корректной работы на GitHub с путями
+       // basename={"https://kupavtsev.github.io/Reac-ITKA/"} production
+       // basename={process.env.PUBLIC_URL} рабоает корректно с <BrowserRouter>
+       return <HashRouter>
               <Provider store={store}>
                      <AppContainer />
               </Provider>
-       </BrowserRouter>
+       </HashRouter>
 }
 
 export default SocialJSApp;
