@@ -35,12 +35,12 @@ const MyPosts = React.memo((props) => {
     }
     */
 
-    console.log('Render MyPosts');
+    //console.log('Render MyPosts');
     //window.props.push(this.props);
 
     let postsElements = [...props.posts]
         .reverse() //this is correct because we do copy of Array
-        .map(p => <Post message={p.message} likesCount={p.likesCount} />);
+        .map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount} />);
         //.reverse() WRONG for Pure Function this is mutual method !!!
 
     let onAddPost = (values) => {
