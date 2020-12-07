@@ -10,12 +10,17 @@ import { Redirect } from 'react-router-dom';
 import style from './../common/FormsControls/FormsControls.module.css';
 
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField("Email", "email", [required], Input)}
             {createField("Password", "password", [required], Input, { type: "password" })}
             {createField(null, "rememberMe", [], Input, { type: "checkbox" }, "remember me")}
+            
+            {/* Создаем на экране Каптчу и поле для нее */}
+            {captchaUrl && <img src={captchaUrl}/>}
+            {captchaUrl && createField("Symbols from image", "captcha", [required], Input, {})}
+
             { error &&
                 <div className={style.formSummaryError}>
                     {error}
@@ -40,7 +45,7 @@ const Login = (props) => {
         // it's not Thunk creator
         // 78 19:00 это CB который внутри себя диспатчит вызов Thunk Creator
         // из connect, в который передаются эти же параметры, что и в CB
-        props.login(formData.email, formData.password, formData.rememberMe);
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }
 
     if (props.isAuth) {
@@ -51,11 +56,12 @@ const Login = (props) => {
         <h1>Login</h1>
         {/* This name is gpoing to HOC reduxForm 
         <LoginForm /> */}
-        <LoginReduxFrom onSubmit={onSubmit} />
+        <LoginReduxFrom onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
     </div>
 };
 
 const mapStateToProps = (state) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 
