@@ -17,7 +17,6 @@ setInterval(() => {
 // When we use HOC withRouter in app.js it should be already inside of <BrowserRouter> and <Provider>
 // after 'return'
 ReactDOM.render(
-    
             <SocialJSApp />
         , document.getElementById('root'));
 

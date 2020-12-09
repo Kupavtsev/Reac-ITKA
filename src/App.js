@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import { HashRouter, Route, withRouter } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
@@ -26,13 +26,28 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 
 class App extends React.Component {
 
+       // 99 40min
+       /*
+       catchAllUnhandleErrors = (promiseRejectionEvent) => {
+              alert("Some error occured");
+              //console.error(promiseRejectionEvent);
+       }
+       */
        componentDidMount() {
               /*Вторым параметром передаем настройки запроса*/
               this.props.initializeApp();
+              //window.addEventListener("unhandledrejection", this.catchAllUnhandleErrors); 99
        }
+       /* 99
+       componentWillMount() {
+              window.removeEventListener("unhandledrejection", this.catchAllUnhandleErrors);
+       }
+       */
 
        render() {
               if (!this.props.initialized) {
+                     // Если запускается Preloader, значит компонета вмонтировалась
+                     // и запускается componentDidMount
                      return <Preloader />
               }
 
@@ -42,31 +57,42 @@ class App extends React.Component {
                             <HeaderContainer />
                             <Navbar />
                             <div className='app-wrapper-content'>
-                                   <Route path='/dialogs'
-                                           render={withSuspense(DialogsContainer)} />
-                                   
-                                   {/* <Suspense fallback={<Preloader />}>
-                                          <Route path='/dialogs'
-                                                 render={() => <DialogsContainer />} />
-                                   </Suspense> */}
-
                                    <Suspense fallback={<Preloader />}>
-                                          {/*60 20:00 adding params for user profile
-                                     path='/profile/:userId/:secondParams'
-                                     :userId? - ? now param as option*/}
-                                          <Route path='/profile/:userId?'
-                                                 render={() => <ProfileContainer />} />
+                                          <Switch>
+                                                 <Route exact path='/'
+                                                        render={ () => <Redirect to={"/profile"}/>} />
+
+                                                 <Route path='/dialogs'
+                                                        render={withSuspense(DialogsContainer)} />
+
+                                                 {/* <Suspense fallback={<Preloader />}>
+                                                  <Route path='/dialogs'
+                                                  render={() => <DialogsContainer />} />
+                                                  </Suspense> */}
+
+
+                                                 {/*60 20:00 adding params for user profile
+                                                   path='/profile/:userId/:secondParams'
+                                                      :userId? - ? now param as option*/}
+                                                 <Route path='/profile/:userId?'
+                                                        render={() => <ProfileContainer />} />
+
+                                                 <Route path='/users'
+                                                        render={() => <UsersContainer />} />
+
+                                                 <Route path='/music' component={Music} />
+                                                 <Route path='/news' component={News} />
+                                                 <Route path='/settings' component={Settings} />
+
+                                                 <Route path='/login'
+                                                        render={() => <Login />} />
+
+                                                 <Route path='/*' exact={true}
+                                                        render={() => <div>404 NOT FOUND</div>} />
+
+
+                                          </Switch>
                                    </Suspense>
-
-                                   <Route path='/users'
-                                          render={() => <UsersContainer />} />
-
-                                   <Route path='/music' component={Music} />
-                                   <Route path='/news' component={News} />
-                                   <Route path='/settings' component={Settings} />
-
-                                   <Route path='/login'
-                                          render={() => <Login />} />
                             </div>
                      </div>
               );
@@ -80,21 +106,20 @@ const mapStateToProps = (state) => ({
 })
 
 
-// 80 10:45 compose and withRouter, but it's work the same !!!
+// 80 10:45 compose and withRouter, but it's work the same without it !!!
 let AppContainer = compose(
        withRouter,
-       connect(mapStateToProps, { initializeApp })
-)(App);
+       connect(mapStateToProps, { initializeApp }))(App);
 
 const SocialJSApp = (props) => {
        // basename необходимо для корректной работы на GitHub с путями
        // basename={"https://kupavtsev.github.io/Reac-ITKA/"} production
        // basename={process.env.PUBLIC_URL} рабоает корректно с <BrowserRouter>
-       return <HashRouter>
+       return <BrowserRouter>
               <Provider store={store}>
                      <AppContainer />
               </Provider>
-       </HashRouter>
+       </BrowserRouter>
 }
 
 export default SocialJSApp;
