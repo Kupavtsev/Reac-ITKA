@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "14bbc9fb3d1dde5bec6479aee82add5c",
+    "revision": "1e3766a7bb35de632e5e7c8b8ee1c567",
     "url": "/Reac-ITKA/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Reac-ITKA/static/css/4.94e8bc57.chunk.css"
   },
   {
-    "revision": "e4d81cf7360bedbe6153",
+    "revision": "ce9a063932c72582084f",
     "url": "/Reac-ITKA/static/css/main.cba8ab94.chunk.css"
   },
   {
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Reac-ITKA/static/js/4.4762c544.chunk.js"
   },
   {
-    "revision": "e4d81cf7360bedbe6153",
-    "url": "/Reac-ITKA/static/js/main.55ea2c33.chunk.js"
+    "revision": "ce9a063932c72582084f",
+    "url": "/Reac-ITKA/static/js/main.c5cb0d3e.chunk.js"
   },
   {
     "revision": "6c1b0e6b8017996857fe",
