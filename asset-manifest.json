@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Reac-ITKA/static/css/main.cba8ab94.chunk.css",
-    "main.js": "/Reac-ITKA/static/js/main.c5cb0d3e.chunk.js",
-    "main.js.map": "/Reac-ITKA/static/js/main.c5cb0d3e.chunk.js.map",
+    "main.js": "/Reac-ITKA/static/js/main.1fbcc26e.chunk.js",
+    "main.js.map": "/Reac-ITKA/static/js/main.1fbcc26e.chunk.js.map",
     "runtime-main.js": "/Reac-ITKA/static/js/runtime-main.c3ce7d12.js",
     "runtime-main.js.map": "/Reac-ITKA/static/js/runtime-main.c3ce7d12.js.map",
     "static/js/2.e90fad52.chunk.js": "/Reac-ITKA/static/js/2.e90fad52.chunk.js",
@@ -14,7 +14,7 @@
     "static/js/4.4762c544.chunk.js": "/Reac-ITKA/static/js/4.4762c544.chunk.js",
     "static/js/4.4762c544.chunk.js.map": "/Reac-ITKA/static/js/4.4762c544.chunk.js.map",
     "index.html": "/Reac-ITKA/index.html",
-    "precache-manifest.2a5619ac18be2c5bb3af0287285ac0ab.js": "/Reac-ITKA/precache-manifest.2a5619ac18be2c5bb3af0287285ac0ab.js",
+    "precache-manifest.5269c425fe7491b25b95af48878437b4.js": "/Reac-ITKA/precache-manifest.5269c425fe7491b25b95af48878437b4.js",
     "service-worker.js": "/Reac-ITKA/service-worker.js",
     "static/css/3.211559ec.chunk.css.map": "/Reac-ITKA/static/css/3.211559ec.chunk.css.map",
     "static/css/4.94e8bc57.chunk.css.map": "/Reac-ITKA/static/css/4.94e8bc57.chunk.css.map",
@@ -26,6 +26,6 @@
     "static/js/runtime-main.c3ce7d12.js",
     "static/js/2.e90fad52.chunk.js",
     "static/css/main.cba8ab94.chunk.css",
-    "static/js/main.c5cb0d3e.chunk.js"
+    "static/js/main.1fbcc26e.chunk.js"
   ]
 }
