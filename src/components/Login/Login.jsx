@@ -54,6 +54,8 @@ const Login = (props) => {
 
     return <div>
         <h1>Login</h1>
+        <h2>Email: free@samuraijs.com</h2>
+        <h2>Password: free</h2>
         {/* This name is gpoing to HOC reduxForm 
         <LoginForm /> */}
         <LoginReduxFrom onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
