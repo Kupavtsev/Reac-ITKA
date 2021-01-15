@@ -1,3 +1,11 @@
+UI and BLL of Social Network 100% on React JS.
+
+Without any backend.
+It's work on outside server:
+https://social-network.samuraijs.com/api/
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
