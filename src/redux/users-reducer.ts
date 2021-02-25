@@ -1,5 +1,6 @@
 import { userAPI } from "../api/api";
 import { updateObjectInArray } from "../utils/object-helpers";
+import { userType } from './../types/types';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -10,17 +11,20 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 
+
+
 let initialState = {
-    users: [],
+    users: [] as Array<userType>,
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [],
-    //fake: 10
+    followingInProgress: []as Array<number>, // array of users ids
 };
 
-const usersReducer = (state = initialState, action) => {
+type initialStateType = typeof initialState;
+
+const usersReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         //case "FAKE": return {...state, fake: state.fake + 1}
         case FOLLOW:
@@ -80,23 +84,62 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 
+type followSuccessActionType = {
+    type: typeof FOLLOW
+    userId: number
+}
 // Чтобы зафоловить кого-то нам нужен userId, который приходит в функцию, как параметр
-export const followSuccess = (userId) => {
+export const followSuccess = (userId: number): followSuccessActionType => {
     //debugger;
     return (
         { type: FOLLOW, userId }
     )
 }
-export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
-// Action which will set users to the STATE in Array from serever
-export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
-export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount });
-export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
-export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
 
-export const requestUsers = (page, pageSize) => {
-    return async (dispatch) => {
+type unfollowSuccessActionType = {
+    type: typeof UNFOLLOW
+    userId: number
+}
+export const unfollowSuccess = (userId: number): unfollowSuccessActionType => ({ type: UNFOLLOW, userId });
+
+type setUsersActionType = {
+    type: typeof SET_USERS
+    users: Array<userType>
+}
+// Action which will set users to the STATE in Array from serever
+export const setUsers = (users: Array<userType>): setUsersActionType => ({ type: SET_USERS, users });
+
+type setCurrentPageActionType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+export const setCurrentPage = (currentPage: number): setCurrentPageActionType => ({ type: SET_CURRENT_PAGE, currentPage });
+
+type setTotalUsersCountActionType = {
+    type: typeof SET_TOTAL_USERS_COUNT
+    count: number
+}
+export const setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountActionType => (
+    { type: SET_TOTAL_USERS_COUNT, count: totalUsersCount }
+    );
+
+type toggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+}
+export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => ({ type: TOGGLE_IS_FETCHING, isFetching });
+
+type toggleFollowingProgressActionType = {
+    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
+    isFetching: boolean
+    userId: number
+}
+export const toggleFollowingProgress = (isFetching: boolean, userId: number): toggleFollowingProgressActionType => (
+    { type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId }
+    );
+
+export const requestUsers = (page: number, pageSize: number) => {
+    return async (dispatch: any) => {
 
         dispatch(toggleIsFetching(true));
         // It whows Current Page in UI
@@ -110,7 +153,7 @@ export const requestUsers = (page, pageSize) => {
 }
 
 // Данный метод забрал дублирующийся код из follow/unfollow на себя
-const followUnfollowFlow = async (dispatch, userid, apiMethod, actionCreator) => {
+const followUnfollowFlow = async (dispatch: any, userid: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleFollowingProgress(true, userid));
 
     /* Server API follow/{userId}, we must be authorized
@@ -124,14 +167,14 @@ const followUnfollowFlow = async (dispatch, userid, apiMethod, actionCreator) =>
 }
 
 // выносим связку диспатчей в отдельную Санку
-export const follow = (userid) => {
-    return async (dispatch) => {
+export const follow = (userid: number) => {
+    return async (dispatch: any) => {
         followUnfollowFlow(dispatch, userid, userAPI.follow.bind(userAPI), followSuccess);
     }
 }
 
-export const unfollow = (userid) => {
-    return async (dispatch) => {
+export const unfollow = (userid: number) => {
+    return async (dispatch: any) => {
         followUnfollowFlow(dispatch, userid, userAPI.unfollow.bind(userAPI), unfollowSuccess);
     }
 }
